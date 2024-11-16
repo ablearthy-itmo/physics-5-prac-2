@@ -1,0 +1,397 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{phypreamble}
+
+\solutiontrue
+
+\begin{document}
+
+\begin{gather}
+    \Psi(\vec{r}, t) \in \CC \\
+    \left| \Psi \right|^2 = p(\vec{r}, t)\ \text{(плотность вероятности)}, \int_{\RR^3} \left| \Psi \right|^2 \dd V = 1 \label{prop:psi-1} \\
+    \Psi(\vec{r}, t)\ \text{определена с точностью до}\ \exp(i \xi) \\
+    \Psi\ \text{ограничена и непрерывна} \\
+    \Psi = \alpha_1 \Psi_1 + \alpha_2 \Psi_2\ \text{--- линейность}
+\end{gather}
+
+\begin{problem}{}
+\[
+    \Psi(x) =
+    \begin{cases}
+        A \sin \frac{\pi x}{a}, & 0 \leq x \leq a \\
+        0, & \text{иначе}
+    \end{cases}
+\]
+
+Определить \(A\).
+
+\begin{solution}
+Воспользуемся свойством \ref{prop:psi-1}:
+\[A^2 \int_0^a \sin^2 \frac{\pi x}{a} \dd x = 1.\]
+\[\frac{A^2}{2} \int_0^a 1 - \cos \frac{2\pi x}{a} \dd x = \frac{A^2}{a} = 1 \implies A = \sqrt{\frac{2}{a}}.\]
+\end{solution}
+
+\end{problem}
+
+\begin{lemma}[Гауссов интеграл]
+\begin{equation}\label{eq:gauss-int}
+I = \int_{\RR} \exp\left(-t^2\right) \dd t = \sqrt\pi.
+\end{equation}
+\begin{proof}
+\[I^2 = \int_{\RR^2} \exp\left(-x^2 - y^2\right) \dd x \dd y \by{\mathrm{ПСК}} \int_0^{2\pi} \int_0^{+\infty} \exp\left(-\rho^2\right) \rho \dd \rho \dd \varphi = 2 \pi \cdot \frac12 \int_0^{+\infty} \exp\left(-\rho^2\right) \dd \rho^2 = \pi. \]
+\end{proof}
+\end{lemma}
+
+\begin{problem}{}
+\[\Psi(x) = A \exp\left(-\frac{x^2}{2 x_0^2}\right).\]
+Определить \(A\).
+
+\begin{solution}
+Воспользуемся свойством \ref{prop:psi-1}:
+\[A^2 \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \dd x = \left[ t = \frac{x}{x_0} \right] = A^2 x_0 \int_{\RR} \exp\left(-t^2\right) \dd t = 1.\]
+По \eqref{eq:gauss-int} \(I = \int_{\RR} \exp\left(-t^2\right) \dd t = \sqrt\pi \).
+Тогда \(A = \frac{1}{\sqrt{x_0 \sqrt{\pi}}}\).
+\end{solution}
+\end{problem}
+
+
+\begin{problem}{}
+\[\Psi(x) = A x \exp\left(-\frac{x^2}{2 x_0^2}\right).\]
+Определить \(A\).
+
+\begin{solution}
+Воспользуемся свойством \ref{prop:psi-1}:
+\[A^2 \int_{\RR} x^2 \exp\left(-\frac{x^2}{x_0^2}\right) \dd x = \left[ t = \frac{x}{x_0} \right] = A^2 x_0^2 \int_{\RR} t^2 \exp\left(-t^2\right) \dd t = 1.\]
+Введём параметр \(\alpha\):
+\[
+\begin{split}
+    &\left.\int_{\RR} t^2 \exp\left(-\alpha t^2\right) \dd t\right|_{\alpha = 1}
+    = \left[-\frac{\partial}{\partial \alpha}\left(\int_{\RR} \exp\left(-\alpha t^2\right) \dd t \right)\right]_{\alpha = 1} \\
+    &= \left[-\frac{\partial}{\partial \alpha}\left(\frac1{\sqrt{\alpha}} \int_{\RR} \exp\left(-\left(\sqrt{\alpha} t\right)^2\right) \dd \left(\sqrt{\alpha} t\right)\right)\right]_{\alpha = 1}
+    = \left[-\frac{\partial}{\partial \alpha}\left(\frac1{\sqrt{\alpha}} I \right)\right]_{\alpha = 1}
+    = \left[-\frac{\partial}{\partial \alpha}\left(\sqrt{\frac{\pi}{\alpha}}\right)\right]_{\alpha = 1} \\
+    &= \left.\frac12 \sqrt\pi \alpha^{-3/2}\right|_{\alpha = 1} = \frac{\sqrt\pi}{2}.
+\end{split}
+\]
+
+Тогда \(A = \frac{\sqrt{2}}{x_0 \sqrt[4]{\pi}}\).
+\end{solution}
+\end{problem}
+
+\section{Коммутаторы}
+
+Коммутатором для операторов \(\hat{A}\) и \(\hat{B}\) является
+\[ \left[\hat{A}, \hat{B}\right] = \hat{A}\hat{B} - \hat{B}\hat{A}.\]
+Операторы \(\hat{A}\) и \(\hat{B}\) коммутируют, если \(\left[\hat{A}, \hat{B}\right] = 0\).
+
+Некоторые операторы:
+\begin{align*}
+    \hat{r} &= \vec{r} && \text{оператор координаты} \\
+    \hat{\vec{p}} &= -i \hbar \nabla && \text{оператор импульса} \\
+    \hat{T} &= \frac{\hat{\vec{p}}^2}{2m} = -\frac{\hbar \Laplace}{2 m} && \text{оператор кинетической энергии} \\
+    \hat{U} &= U && \text{оператор потенциальной энергии} \\
+    \HHam &= \hat{T} + \hat{U} && \text{оператор полной энергии}
+\end{align*}
+
+\begin{problem}{}
+Вычслить \(\left[\hat{x}, \hat{p}_x \right]\).
+
+\begin{solution}
+\[
+\begin{split}
+    & \left[\hat{x}, \hat{p}_x \right] \Psi
+    = \hat{x} \hat{p}_x \Psi - \hat{p}_x \hat{x} \Psi
+    = \hat{x} \left(-i\hbar \frac{\partial \Psi}{\partial x}\right) - \left(- i \hbar \frac{\partial \left(x \Psi\right)}{\partial x}\right)
+    = -i \hbar \left(x \frac{\partial \psi}{\partial x} - \frac{\partial \left(x \Psi\right)}{\partial x} \right) \\
+    &= -i \hbar \left(x \frac{\partial \psi}{\partial x} - \Psi - x \frac{\partial Psi}{\partial x}\right)
+    = i \hbar \Psi.
+\end{split}
+\]
+Следовательно, \(\left[\hat{x}, \hat{p}_x \right] = i \hbar\).
+\end{solution}
+\end{problem}
+
+\begin{problem}{}
+\begin{align*}
+    \left[\hat{x}, \hat{p}_y \right] &= 0 \\
+    \left[\hat{x}, \hat{y} \right] &= 0 \\
+    \left[\hat{p}_i, \hat{p}_j \right] &= 0 \\
+    \left[\hat{x}_i, \hat{x}_j \right] &= 0 \\
+    \left[\hat{x}_i, \hat{p}_j \right] &= i\hbar \delta_{ij}
+\end{align*}
+\end{problem}
+
+\begin{problem}{}
+Вычислить \(\left[\hat{\vec{r}}, \hat{\vec{p}}^2 \right]\).
+
+\begin{solution}
+Некоторые свойства операторов:
+\begin{gather}
+    \left[\alpha \hat{A} + \beta \hat{B}, \hat{C}\right] = \alpha \left[\hat{A}, \hat{C}\right] + \beta \left[\hat{B}, \hat{C}\right]  \label{prop:commutator-linear}\\
+    \left[\hat{A}, \hat{B} \hat{C}\right] = \left[\hat{A}, \hat{B}\right] \hat{C} + \hat{B} \left[\hat{A}, \hat{C}\right] \label{prop:abc-abc-bac}.
+\end{gather}
+
+Тогда
+\[
+\begin{split}
+    & \left[\op{\vec{r}}, \hat{\op{p}}^2 \right]
+    = \left[\sum_k \hat{x}_k \vec{e}_k, \sum_l \hat{p}_l^2\right]
+    = \sum_{k, l} \vec{e}_k \left[\hat{x}_k, \hat{p}_l \hat{p}_l \right]
+    = \sum_{k, l} \vec{e}_k \left(\left[\hat{x}_k, \hat{p}_l\right] \hat{p}_l + \hat{p}_l \left[\hat{x}_k, \hat{p}_l\right]\right) \\
+    &= \sum_{k, l} \vec{e}_k \cdot 2 i \hbar \delta_{k l} \hat{p}_l
+    = 2 i \hbar \sum_i \hat{p}_i \vec{e}_i = 2 i \hbar \hat{\vec{p}}.
+\end{split}
+\]
+
+Доказательство свойства \ref{prop:commutator-linear}:
+\[
+  \left[\alpha \op A + \beta \op B, \op C \right]
+  = \left(\alpha \op A + \beta \op B\right) \op C - \op C \left(\alpha \op A + \beta \op B\right)
+  = \alpha \left(\op A \op C - \op C \op A \right) + \beta \left(\op B \op C - \op C \op B\right)
+  = \alpha \left[\op A, \op C\right] + \beta \left[\op B, \op C\right].
+\]
+
+Доказательство свойства \ref{prop:abc-abc-bac}:
+\[
+\begin{split}
+  & \comm{\op A}{\op B \op C}
+  = \op A \op B \op C - \op B \op C \op A
+  = \op A \op B \op C - \op B \op A \op C + \op B \op A \op C - \op B \op C \op A \\
+  &= \left(\op A \op B - \op B \op A \right) \op C + \op B \left(\op A \op C - \op C \op A \right)
+  = \comm{\op A}{\op B} \op C + \op B \comm{\op A}{\op C}.
+\end{split}
+\]
+\end{solution}
+\end{problem}
+
+\section{Эрмитов оператор}
+
+\begin{definition}[Эрмитово сопряжение]
+\({\op F}^+\) --- эрмитово сопряжение к \(\op F\), если
+\[\forall \Phi, \Psi:\ \left({\op F}^+ \Psi, \Phi \right) = \left(\Psi, \op F \Phi \right)\]
+
+В данном случае скалярное произведение определено так:
+\[
+  \left(f, g\right) = \int_{\RR} f(x) g(x)^* \dd x.
+\]
+\end{definition}
+
+\begin{definition}[Эрмитов оператор]
+\(\op F\) --- эрмитов оператор, если \({\op F}^+ = \op F\).
+\end{definition}
+
+\begin{definition}[Среднее значение оператора]
+\[
+\avgOp{F} = \int_{\RR} \Psi^* \op F \Psi \dd x = \left(\op F \Psi, \Psi\right).
+\]
+\end{definition}
+
+\begin{remark}
+Пусть у оператора \(\op F\) есть собственные векторы \(\Psi_n\) и соответствующие собственные числа \(f_n\).
+Тогда произвольную волновую функциную можно разложить по собственным векторам:
+\[\Psi = \sum_n C_n \Psi_n,\]
+где \(C_n = \left(\Psi, \Psi_n\right)\).
+
+Среднее значение можно определить как:
+\[\avgOp{f} = \sum_n P_n f_n,\]
+где \(P_n\) --- вероятность.
+
+Можно считать, что \(P_n = \left|C_n\right|^2\), тогда
+\[
+\begin{split}
+  & \avgOp{f}
+  = \sum_n \left|C_n\right|^2 f_n
+  = \sum_n C_n^* C_n f_n
+  = \sum_n C_n \left(\Psi_n, \Psi\right) f_n
+  = \sum_n C_n \left(f_n \Psi_n, \Psi\right)
+  = \sum_n C_n \left(\op F \Psi_n, \Psi\right) \\
+  &= \left(\sum_n C_n \op F \Psi_n, \Psi\right)
+  = \left(\op F \sum_n C_n \Psi_n, \Psi\right)
+  = \left(\op F \Psi, \Psi\right)
+\end{split}
+\]
+
+\end{remark}
+
+\begin{theorem}
+\[
+\avgOp{F} \in \RR \iff \op{F}^+ = \op F.
+\]
+\begin{proof}
+\[
+  \avgOp{F}^* = \int_{\RR} \Psi \op{F}^* \Psi^* \dd x = \int_{\RR} \Psi \op F \Psi^* \dd x = \avgOp{F}.
+\]
+Так как сопряжение равно себе же, то это действительная величина.
+\end{proof}
+\end{theorem}
+
+\begin{definition}
+\[
+\avgOp{F^2} = \int_{\RR} \left|\op F \Psi \right|^2 \dd x 
+\]
+\begin{proof}
+\[
+  \avgOp{F^2}
+  = \left(\op F \op F \Psi, \Psi\right)
+  = \left(\op F \Psi, \op F \Psi\right)
+  = \int_{\RR} \left|\op F \Psi\right|^2 \dd x
+\]
+\end{proof}
+\end{definition}
+
+\begin{definition}
+\begin{equation}\label{prop:sigma2}
+\avgOp{(\Delta F)^2} = \avgOp{\left(F - \avgOp{F}\right)^2} = \avgOp{F^2} - \avgOp{F}^2.
+\end{equation}
+\end{definition}
+
+\begin{problem}{}
+\[
+  \Psi(x) = \frac1{\sqrt{x_0 \sqrt\pi}} \exp\left(-\frac{x^2}{2 x_0^2} + i k_0 x\right).
+\]
+
+\subproblem Найти \(\avgOp{x}\).
+\subproblem Найти \(\avgOp{(\Delta x)^2}\).
+\subproblem Найти \(\avgOp{p_x}\).
+\subproblem Найти \(\avgOp{(\Delta p_x)^2}\).
+
+\begin{solution}
+
+\subproblem
+\[
+  \avgOp{x}
+  = \int_{\RR} \Psi^* \cdot x \cdot \Psi \dd x
+  = \frac1{\sqrt{x_0 \sqrt\pi}} \int_{\RR} x \exp\left(-\frac{x^2}{x_0^2}\right) \dd x = 0.
+\]
+
+\subproblem
+\[
+\avgOp{(\Delta x)^2}
+  = \avgOp{x^2} - \avgOp{x}^2 = \avgOp{x^2}
+  = \frac{1}{\sqrt{x_0 \sqrt\pi}} \int_{\RR} x^2 \exp\left(-\frac{x^2}{x_0^2}\right) \dd x
+  = \frac{x_0^3}{x_0 \sqrt\pi} \frac{\sqrt\pi}{2} = \frac{x_0^2}{2}
+\]
+
+\subproblem
+\[
+\begin{split}
+  & \avgOp{p_x}
+  = -i \hbar \int_{\RR} \Psi^* \frac{\partial \Psi}{\partial x} \dd x
+  \by{\eqreflocal{1}} -\frac{i \hbar}{x_0\sqrt\pi} \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \left(-\frac{x}{x_0^2} + i k_0\right) \dd x \\
+  &\by{\eqreflocal{2}} \frac{\hbar k_0}{\sqrt\pi} \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \dd \frac{x}{x_0}
+  \by{\eqreflocal{3}} \frac{\hbar k_0}{\sqrt\pi} \sqrt\pi
+  = \hbar k_0.
+\end{split}
+\]
+
+\begin{equation}\labellocal{1}
+\begin{split}
+  & \Psi^* \frac{\partial \Psi}{\partial x}
+  = \Psi^* \frac{1}{\sqrt{x_0 \sqrt\pi}} \exp\left(-\frac{x^2}{2x_0^2} + i k_0 x\right) \left(-\frac{x}{x_0^2} + i k_0\right) \\
+  &= \frac{1}{\sqrt{x_0 \sqrt\pi}} \exp\left(-\frac{x^2}{2x_0^2} - i k_0 x\right) \cdot \frac{1}{\sqrt{x_0 \sqrt\pi}} \exp\left(-\frac{x^2}{2x_0^2} + i k_0 x\right) \left(-\frac{x}{x_0^2} + i k_0\right) \\
+  &= \frac{1}{x_0 \sqrt\pi} \exp\left(-\frac{x^2}{x_0^2}\right) \left(-\frac{x}{x_0^2} + i k_0\right).
+\end{split}
+\end{equation}
+
+\begin{equation}\labellocal{2}
+\begin{split}
+  \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \frac{x}{x_0^2} \dd x
+  = \int_{\RR} \mathrm{чёт} \cdot \mathrm{нечёт}\ \dd x
+  = \int_{\RR} \mathrm{нечёт}\ \dd x
+  = 0.
+\end{split}
+\end{equation}
+
+\begin{equation}\labellocal{3}
+\begin{split}
+  \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \dd \frac{x}{x_0}
+  = \left[u = \frac{x}{x_0} \right]
+  = \int_{\RR} \exp\left(-u^2\right) \dd u
+  \by{\eqref{eq:gauss-int}} \sqrt\pi
+\end{split}
+\end{equation}
+
+\subproblem
+\[\avgOp{\left(\Delta p_x\right)^2} \by{\eqref{prop:sigma2}} \avgOp{p_x^2} - \avgOp{p_x}^2 = \frac{\hbar^2}{2 x_0^2} + \hbar^2 k_0^2 - \left(\hbar k_0\right)^2 = \frac{\hbar^2}{2 x_0^2}.\]
+
+\[
+\begin{split}
+  & \avgOp{p_x^2}
+  = \left(- i \hbar\right)^2 \int_{\RR} \Psi^* \frac{\partial^2 \Psi}{\partial x^2} \dd x
+  = \begin{bmatrix}
+    u = \Psi^* & \dd u = \frac{\partial \Psi^*}{\partial x} \dd x \\
+    v = \frac{\partial \Psi}{\partial x} & \dd v = \frac{\partial^2 \Psi}{\partial x^2} \dd x
+  \end{bmatrix}
+  = \left(- i \hbar\right)^2 \left(\left.u v\right|_{\RR} - \int_{\RR} v \dd u \right) \\
+  &= \left.\left(- i \hbar\right)^2 \Psi^* \frac{\partial \Psi}{\partial x}\right|_{\RR}
+  - \left(- i \hbar\right)^2 \int_{\RR} \frac{\partial \Psi}{\partial x} \frac{\partial \Psi^*}{\partial x} \dd x
+  \by{\eqreflocal{1}} \hbar^2 \int_{\RR} \frac{\partial \Psi}{\partial x} \frac{\partial \Psi^*}{\partial x} \dd x \\
+  &= \frac{\hbar^2}{x_0 \sqrt\pi} \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \left|-\frac{x}{x_0^2} + i k_0\right|^2 \dd x
+  = \frac{\hbar^2}{x_0 \sqrt\pi} \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \left(\frac{x^2}{x_0^4} + k_0^2\right) \dd x \\
+  &= \frac{\hbar^2}{x_0 \sqrt\pi} \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \left(\frac{x^2}{x_0^4} + k_0^2\right) \dd x
+  \by{\eqreflocal{2}, \eqreflocal{3}} \frac{\hbar^2}{x_0 \sqrt\pi} \left(\frac{\sqrt\pi}{2 x_0} + k_0^2 x_0 \sqrt\pi \right) \\
+  &= \frac{\hbar^2}{2 x_0^2} + \hbar^2 k_0^2
+\end{split}
+\]
+
+\begin{equation}\labellocal{1}
+  \left.\Psi^* \frac{\partial \Psi}{\partial x}\right|_{\RR}
+  = \left.\frac{1}{x_0 \sqrt\pi} \exp\left(-\frac{x^2}{x_0^2}\right) \left(-\frac{x}{x_0^2} + i k_0\right)\right|_{\RR}
+  = 0
+\end{equation}
+
+\begin{equation}\labellocal{2}
+\begin{split}
+&\int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \frac{x^2}{x_0^4} \dd x
+= \frac{1}{x_0^4} \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) x^2 \dd x \\
+&= \begin{bmatrix}
+u = x & \dd u = \dd x \\
+\dd v = x \exp\left(-\frac{x^2}{x_0^2}\right) \dd x & v = -\frac{x_0^2}{2} \exp\left(-\frac{x^2}{x_0^2}\right)
+\end{bmatrix} \\
+&= \frac{1}{x_0^4} \left(\left.u v\right|_{\RR} - \int_{\RR} v \dd u\right)
+= \frac{1}{x_0^4} \left(\left.-\frac{x x_0^2}{2} \exp\left(-\frac{x^2}{x_0^2}\right)\right|_{\RR} - \int_{\RR} v \dd u\right)
+= \frac{1}{x_0^4} \left(0 - \int_{\RR} v \dd u\right) \\
+&= \frac{1}{x_0^4} \frac{x_0^2}{2} \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \dd x
+= \frac{1}{x_0^4} \frac{x_0^2}{2} x_0 \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \dd \frac{x}{x_0}
+\by{\eqref{eq:gauss-int}} \frac{1}{x_0^4} \frac{x_0^2}{2} x_0 \sqrt\pi
+= \frac{\sqrt\pi}{2 x_0}.
+\end{split}
+\end{equation}
+
+\begin{equation}\labellocal{3}
+\int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) k_0^2 \dd x
+= x_0 k_0^2 \int_{\RR} \exp\left(-\frac{x^2}{x_0^2}\right) \dd \frac{x}{x_0}
+\by{\eqref{eq:gauss-int}} x_0 k_0^2 \sqrt\pi
+\end{equation}
+
+\end{solution}
+\end{problem}
+
+\begin{definition}
+\(\Psi_F\) --- собственная функция и \(F\) --- собственное число:
+\[\op F \Psi_F = F \Psi_F.\]
+\end{definition}
+
+\begin{problem}{}
+
+\[ \Psi = \exp\left(-\frac{x^2}{2}\right). \]
+
+\[ \op F = \frac{\partial^2}{\partial x^2} - x^2. \]
+
+Найти собственное значение.
+
+\begin{solution}
+\[
+\begin{split}
+  &\op F \Psi
+  = \frac{\partial^2}{\partial x^2} \left(\exp\left(-\frac{x^2}{2}\right)\right) - x^2 \exp\left(-\frac{x^2}{2}\right)
+  = \left(-x \exp\left(-\frac{x^2}{2}\right)\right)' - x^2 \exp\left(-\frac{x^2}{2}\right) \\
+  &= -\exp\left(-\frac{x^2}{2}\right) + x^2 \exp\left(-\frac{x^2}{2}\right) - x^2 \exp\left(-\frac{x^2}{2}\right)
+  = -\exp\left(-\frac{x^2}{2}\right).
+\end{split}
+\]
+
+Таким образом, собственное значение \(F = -1\).
+\end{solution}
+\end{problem}
+\end{document}

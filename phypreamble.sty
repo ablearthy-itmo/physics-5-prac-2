@@ -1,0 +1,128 @@
+\ProvidesPackage{phypreamble}
+
+\usepackage[left=3cm,top=2cm,bottom=2cm,right=1cm]{geometry}
+
+\usepackage{microtype}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{mathtools}
+
+
+\usepackage{polyglossia}
+\setmainlanguage[babelshorthands = true]{russian}
+\setotherlanguage{english}
+
+\usepackage{xltxtra}
+\usepackage{unicode-math}
+
+\defaultfontfeatures{Ligatures=TeX,Mapping=tex-text}
+
+\setmainfont{Times New Roman}
+\setromanfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+\setmathfont{STIX Two Math}
+
+\newfontfamily{\cyrillicfont}{Times New Roman}
+\newfontfamily{\cyrillicfontrm}{Times New Roman}
+\newfontfamily{\cyrillicfontsf}{Arial}
+\newfontfamily{\cyrillicfonttt}{Courier New}
+
+\usepackage{xfrac}                  % Красивые дроби
+\usepackage[
+    locale = DE,
+    list-separator       = {;\,},
+    list-final-separator = {;\,},
+    list-pair-separator  = {;\,},
+    list-units           = single,
+    range-units          = single,
+    range-phrase={\text{\ensuremath{-}}},
+    % quotient-mode        = fraction, % красивые дроби могут не соответствовать ГОСТ
+    fraction-function    = \sfrac,
+    separate-uncertainty,
+    ]{siunitx}                 % Размерности SI
+\sisetup{inter-unit-product = \ensuremath{{}\cdot{}}}
+\input{siunitx.cfg}
+
+\usepackage{tabularx}
+\usepackage{import}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks, urlcolor={black},
+    linkcolor={black}, citecolor={black}, filecolor={black}
+}
+
+\usepackage{xifthen}
+
+% \solutiontrue and \solutionfalse control whether solutions are shown
+\newif\ifsolution
+\solutiontrue
+%\solutionfalse
+
+
+% Redefine these if you want to change the language
+\newcommand{\problemlabel}{Задача}
+\newcommand{\solutionlabel}{Решение}
+
+
+% Set up counters for problems and subproblems
+\newcounter{ProblemNum}
+\newcounter{SubProblemNum}[ProblemNum]
+\renewcommand{\theProblemNum}{\arabic{ProblemNum}}
+\renewcommand{\theSubProblemNum}{\alph{SubProblemNum}}
+
+\newcommand*\labellocal[1]{\label{exer:\theProblemNum:\theSubProblemNum:#1}}
+\newcommand*\reflocal[1]{\ref{exer:\theProblemNum:\theSubProblemNum:#1}}
+\newcommand*\eqreflocal[1]{\eqref{exer:\theProblemNum:\theSubProblemNum:#1}}
+
+% The problem environment is the base unit of content for this class.
+\newcommand{\subsectiontitle}{}
+\newenvironment{problem}[1]%
+  {
+  \stepcounter{ProblemNum}
+  \renewcommand*{\subsectiontitle}{\problemlabel \ \theProblemNum \ifthenelse{\isempty{#1}}{}{\ : #1}}
+  \medskip \subsection*{\subsectiontitle}
+  %\FloatBarrier
+  }
+  {
+  %\FloatBarrier
+  }
+
+
+% The subproblem command divides a problem into parts a), b), c), ...
+\newcommand*{\subproblem}{%
+  \stepcounter{SubProblemNum}%
+  {\bf \theSubProblemNum)\hspace{2pt}}
+  }
+
+
+% The solution environment should be used within the problem environment
+\newenvironment{solution}{
+  \setcounter{SubProblemNum}{0}
+  \ifsolution {\textit{\solutionlabel}}.
+  }{\fi}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\dd}{\mathrm{d}}
+\renewcommand{\vec}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand*\Laplace{\Delta}
+\newcommand*{\Ham}{\mathcal{H}}
+\newcommand*{\HHam}{\hat{\mathcal{H}}}
+\newcommand{\op}[1]{\ensuremath{\hat{#1}}}
+\newcommand{\comm}[2]{\ensuremath{\left[#1, #2\right]}}
+\newcommand{\avgOp}[1]{\ensuremath{\langle #1 \rangle}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\newcommand{\by}[1]{\overset{#1}{=\joinrel=}}
