@@ -248,6 +248,18 @@ I = \int_{\RR} \exp\left(-t^2\right) \dd t = \sqrt\pi.
 \begin{equation}\label{prop:sigma2}
 \avgOp{(\Delta F)^2} = \avgOp{\left(F - \avgOp{F}\right)^2} = \avgOp{F^2} - \avgOp{F}^2.
 \end{equation}
+\begin{proof}
+\[
+\begin{split}
+  & \avgOp{(\Delta F)^2} 
+  = \left(\left(F - \avgOp{F}\right)^2 \Psi, \Psi\right)
+  = \left(\left(F^2 - 2 F \avgOp{F} + \avgOp{F}^2\right)\Psi, \Psi\right) \\
+  & = \left(F^2 \Psi, \Psi\right) - 2 \avgOp{F} \left(F \Psi, \Psi\right) + \avgOp{F}^2 \left(\Psi, \Psi\right)
+  = \avgOp{F^2} - 2 \avgOp{F}^2 + \avgOp{F}^2 \cdot 1
+  = \avgOp{F^2} - \avgOp{F}^2.
+\end{split}
+\]
+\end{proof}
 \end{definition}
 
 \begin{problem}{}
