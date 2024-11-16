@@ -166,9 +166,11 @@ I = \int_{\RR} \exp\left(-t^2\right) \dd t = \sqrt\pi.
 
 \section{Эрмитов оператор}
 
-\begin{definition}[Эрмитово сопряжение]
-\({\op F}^+\) --- эрмитово сопряжение к \(\op F\), если
-\[\forall \Phi, \Psi:\ \left({\op F}^+ \Psi, \Phi \right) = \left(\Psi, \op F \Phi \right)\]
+\begin{definition}[Сопряженной оператор]
+\({\op F}^+\) --- сопряженный оператор к \(\op F\), если
+\begin{equation}\label{prop:her-adjoint}
+\forall \Phi, \Psi:\ \left({\op F}^+ \Psi, \Phi \right) = \left(\Psi, \op F \Phi \right)
+\end{equation}
 
 В данном случае скалярное произведение определено так:
 \[
@@ -207,7 +209,7 @@ I = \int_{\RR} \exp\left(-t^2\right) \dd t = \sqrt\pi.
   = \sum_n C_n \left(\op F \Psi_n, \Psi\right) \\
   &= \left(\sum_n C_n \op F \Psi_n, \Psi\right)
   = \left(\op F \sum_n C_n \Psi_n, \Psi\right)
-  = \left(\op F \Psi, \Psi\right)
+  = \left(\op F \Psi, \Psi\right).
 \end{split}
 \]
 
@@ -219,7 +221,10 @@ I = \int_{\RR} \exp\left(-t^2\right) \dd t = \sqrt\pi.
 \]
 \begin{proof}
 \[
-  \avgOp{F}^* = \int_{\RR} \Psi \op{F}^* \Psi^* \dd x = \int_{\RR} \Psi \op F \Psi^* \dd x = \avgOp{F}.
+  \avgOp{F}^* = \left(\Psi, \op F \Psi \right) \by{\eqref{prop:her-adjoint}} \left(\op F \Psi, \Psi\right) = \avgOp{F}.
+\]
+\[
+  \avgOp{F}^* = \int_{\RR} \Psi \op{F}^* \Psi^* \dd x \by{\eqref{prop:her-adjoint}} \int_{\RR} \Psi^* \op F \Psi \dd x = \avgOp{F}.
 \]
 Так как сопряжение равно себе же, то это действительная величина.
 \end{proof}
@@ -233,7 +238,7 @@ I = \int_{\RR} \exp\left(-t^2\right) \dd t = \sqrt\pi.
 \[
   \avgOp{F^2}
   = \left(\op F \op F \Psi, \Psi\right)
-  = \left(\op F \Psi, \op F \Psi\right)
+  \by{\eqref{prop:her-adjoint}} \left(\op F \Psi, \op F \Psi\right)
   = \int_{\RR} \left|\op F \Psi\right|^2 \dd x
 \]
 \end{proof}
