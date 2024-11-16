@@ -54,7 +54,7 @@ jobs:
           echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
 
       - name: Rename main.pdf
-        run: mv main.pdf "$REPO_NAME-$CUR_DATE_TAG.pdf"
+        run: mv build/main.pdf "$REPO_NAME-$CUR_DATE_TAG.pdf"
 
       - name: Publish
         uses: softprops/action-gh-release@v1
