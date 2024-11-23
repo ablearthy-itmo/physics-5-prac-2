@@ -411,4 +411,190 @@ u = x & \dd u = \dd x \\
 Таким образом, собственное значение \(F = -1\).
 \end{solution}
 \end{problem}
+
+\section{Уравнение Шрёдингера}
+
+\begin{equation}
+  \specialnumber{Уравнение Шрёдингера}
+  i \hbar \frac{\partial \Psi(\vec{r}, t)}{\partial t} = \HHam \Psi
+\end{equation}
+
+\begin{equation}
+  \specialnumber{Уравнение непрерывности}
+  \frac{\partial \omega}{\partial t} + \nabla \cdot \vec{j} = 0,
+\end{equation}
+где \(\omega = \left|\Psi\right|^{2}\) и \(\bold{j} = \frac{\hbar^{2}}{2 m i} \left[ \Psi^{*} \Laplace \Psi - \Psi \Laplace \Psi^{*}\right]\).
+Важно, что \(j \sim \left|A\right|^{2}\).
+
+\begin{remark}
+  Поток вероятности определяется как
+  \[
+    \Pi = \frac{\dd \omega}{\dd t}.
+  \]
+  Таким образом по \(\Pi\) можно понять тенденцию к изменению плотности вероятности в данной точке.
+  Но этого недостаточно, хочется ещё знать, куда именно утекает/откуда приходит плотность вероятности.
+  Тогда вводят вектор плотности потока вероятности \(\vec{j}\).
+  \[
+    \Pi = - \oint_{S} \vec{j} \dd \vec{S}.
+  \]
+  Минус здесь нужен по следующим соображениям: если плотность вероятности утекает из точки, то \(\Pi\) отрицательно,
+  однако \(\vec{j}\) будет направлен от точки, следовательно, интеграл даст положительное значение.
+  Тогда можно применить теорему Остроградского--Гаусса:
+  \[
+    \Pi = \frac{\dd \omega}{\dd t} = - \oint_{S} \vec{j} \dd \vec{S} = - \int_{V} \nabla \cdot \vec{j} \dd V
+  \]
+  Следовательно,
+  \[
+    \int_{V} \left(\frac{\dd \omega}{\dd t} + \nabla \cdot \vec{j}\right) \dd V = 0.
+  \]
+  А значит в любой точке:
+  \[
+    \frac{\dd \omega}{\dd t} + \nabla \cdot \vec{j} = 0
+  \]
+  Ещё плотность потока определяет, сколько частиц пройдёт в единицу времени через поперечное сечение единичной площади.
+\end{remark}
+
+\begin{equation}\label{eq:stationary-sch-eq}
+  \specialnumber{Стационарное уравнение Шрёдингера}
+  -\frac{\hbar^{2}}{2m}\Laplace \psi(\vec{r}) + U(\vec{r})\psi(\vec{r}) = E \psi(\vec{r}).
+\end{equation}
+Как видно, \(U\) не зависит от времени.
+Идея в том, чтобы представить волновую функцию как \(\Psi(\vec{r}, t) = \psi(\vec{r}) \exp\left(-i \frac{E}{\hbar} t\right)\).
+Тогда у волновой функции будут приятные свойства: \(\omega\) и среднее значение не зависят от времени.
+Однако если мы из волновых функций вида \(\Psi(\vec{r}, t) = \psi(\vec{r}) \exp\left(-i \frac{E}{\hbar} t\right)\)
+составим линейную комбинацию, то этих приятных свойств может и не быть.
+
+\begin{remark}
+  Чтобы получить стационарное уравнение Шрёдингера, нужно прибегнуть к методу разделения переменных:
+  \[
+    \Psi(x, t) = \psi(x) \phi(t).
+  \]
+  Тогда уравнение Шрёдингера после упрощение будет иметь вид:
+  \[
+    i \hbar \psi \frac{\dd \phi}{\dd t} = -\frac{\hbar^{2} \phi}{2m} \frac{\dd^{2} \psi}{\dd x^{2}} + U \psi \phi
+  \]
+  Поделим на \(\psi \phi\), чтобы левая часть зависела только от \(t\), а правая только от \(x\).
+  \[
+    i \hbar \frac{1}{\phi} \frac{\dd phi}{\dd t} = -\frac{\hbar^{2}}{2m \psi} \frac{\dd^{2} \psi}{\dd x^{2}} + U
+  \]
+  Но так как это функции от разных переменных, то обе части должны быть равны какой-то константе. Обозначим её \(E\).
+  В итоге получим два уравнения:
+  \[
+    \begin{cases}
+      i \hbar \frac{1}{\phi} \frac{\dd \phi}{\dd t} = E, \\
+      -\frac{\hbar^{2}}{2m \psi} \frac{\dd^{2} \psi}{\dd x^{2}} + U = E.
+    \end{cases}
+  \]
+  Решением первого уравнение будет: \(\phi(t) = \exp\left(-i \frac{E}{\hbar} t\right)\).
+  Решение второго уравнения будет зависеть от формы \(U\).
+\end{remark}
+
+
+\begin{problem}{Свободное одномерное движение частицы}
+Частица массы \(m\) движется в свободно (\(U = 0\)). Найти \(E\) и \(\Psi\) в одномерном случае.
+
+\begin{solution}
+  Воспользуемся уравнением~\eqref{eq:stationary-sch-eq}:
+  \[
+    -\frac{\hbar^{2}}{2m} \Laplace \psi(\vec{r}) = E \psi(\vec{r}).
+  \]
+  \[
+    -\frac{\hbar^{2}}{2m} \frac{\dd^{2} \psi}{\dd x^{2}} = E \psi(x).
+  \]
+  Решением данного дифференциального уравнения будет:
+  \[
+    \psi^{(\pm)}(x) = A^{(\pm)} \exp\left(\pm i \frac{\sqrt{2 m E}}{\hbar} x\right)
+  \]
+\end{solution}
+\end{problem}
+
+\begin{remark}
+  Вообще говоря решением будет:
+  \[
+    \psi(x) = A e^{i k x} + B e^{-i k x},
+  \]
+  где \(k = \frac{\sqrt{2 m E}}{\hbar}\).
+  Однако можно принять, что \(k = \pm \frac{\sqrt{2 m E}}{\hbar}\) и тогда
+  \[
+    \psi(x) = A e^{i k x}.
+  \]
+  Тогда волновая функция будет иметь вид:
+  \begin{equation}\label{eq:free-particle-psi-k}
+    \Psi_{k}(x, t) = A \exp\left(i \left(k x - \frac{\hbar k^{2}}{2m} t\right)\right).
+  \end{equation}
+  Энергия же может принимать любые значения, на неё нет никаких ограничений.
+  Найдём \(A\), воспользуемся \ref{prop:psi-1}:
+  \[
+    |A|^{2} \int_{\RR} e^{2 i k x - i \frac{E}{\hbar} t}  e^{-2 i k x + i \frac{E}{\hbar} t} \dd x = |A|^{2} \int_{\RR} \dd x = |A|^{2} \cdot (\infty).
+  \]
+  Таким образом, волновая функция~\eqref{eq:free-particle-psi-k} не может (физически) представлять состояние системы, так как она не нормируема.
+  Однако
+  \begin{align*}
+    \Psi(x, t) &= \frac{1}{\sqrt{2 \pi}} \int_{\RR} \phi(k) e^{i (k x + \frac{\hbar k^{2}}{2m} t)} \dd k, \\
+    \phi(k) &= \frac{1}{\sqrt{2 \pi}} \int_{\RR} \Psi(x, 0) e^{-i k x}\dd x.
+  \end{align*}
+\end{remark}
+
+\begin{problem}{Потенциальный барьер}
+  Пусть задана функция:
+  \[
+    U(x) =
+    \begin{cases}
+      0, & x < 0, \\
+      U_{0}, & 0 \leq x \leq a, \\
+      0, & x > a.
+    \end{cases}
+  \]
+  Пусть \(0 < E < U_{0}\). Найти волновую функцию.
+
+\begin{solution}
+  Найдём волновую функцию, решив стационарное уравнение Шрёдингера. Разобъём область на три части.
+  \begin{align*}
+    & -\frac{\hbar^{2}}{2m} \frac{\dd^{2} \psi_{\RNum{1}, \RNum{3}}}{\dd x^{2}} = E \psi_{\RNum{1}, \RNum{3}} \\
+    & -\frac{\hbar^{2}}{2m} \frac{\dd^{2} \psi_{\RNum{2}}}{\dd x^{2}} + U_{0} \psi_{\RNum{2}} = E \psi_{\RNum{2}}.
+  \end{align*}
+  Решениями будут:
+  \begin{align*}
+    & \psi_{\RNum{1}} = A_{1} e^{i k x} + B_{1} e^{- i k x}, & k = \frac{\sqrt{2 m E}}{\hbar}, \\
+    & \psi_{\RNum{2}} = A_{2} e^{-k_{2} x} + B_{2} e^{k_{2} x}, & k_{2} = \frac{\sqrt{2 m (U_{0} - E)}}{\hbar}, \\
+    & \psi_{\RNum{3}} = A_{3} e^{i k (x - a)}, & k = \frac{\sqrt{2 m E}}{\hbar}.
+  \end{align*}
+  В третьем уравнении нет второго слагаемого, так как предполагается, что волна идёт вправо.
+  Из условия непрерывности волновой функции:
+  \begin{align*}
+    A_{1} + B_{1} &= A_{2} + B_{2}, \\
+    A_{2} e^{-k_{2} a} + B_{2} e^{k_{2} a} &= A_{3}, \\
+    i k (A_{1} - B_{1}) &= k_{2} (B_{2} - A_{2}), \\
+    k_{2} (B_{2} e^{k_{2} a} - A_{2} e^{-k_{2} a}) &= i k A_{3}.
+  \end{align*}
+  Отсюда:
+  \begin{align*}
+    A_{2} &= \frac{1 - i n}{2} e^{k_{2} a} A_{3}, \\
+    B_{2} &= \frac{1 + i n}{2} e^{-k_{2} a} A_{3}.
+  \end{align*}
+  Систему из четырёх уравнений можно: если \(k_{2} a > 3\), то \(\left|A_{2}\right| >> \left|B_{2}\right|\); таким образом пренебрегаем \(B_{2}\).
+
+  В таком случае:
+  \begin{align*}
+    A_{1} &= \frac{(1 - i n) (n + i)}{2 n} e^{k_{2} a} A_{3}, \\
+    B_{1} &= \frac{(1 - i n) (n - i)}{2 n} e^{k_{2} a} A_{3}.
+  \end{align*}
+  \begin{align*}
+    R &= \left|\vec{j_{\text{отр}}}\right| / \left|\vec{j_{0}}\right| & \quad \text{Коэффициент отражения}, \\
+    D &= \left|\vec{j_{\text{пр}}}\right| / \left|\vec{j_{0}}\right| & \quad \text{Коэффициент прохождения}.
+  \end{align*}
+  \(\vec{j_{\text{отр}}}\) --- вектор плотности потока частиц, отражённых от барьера,
+  \(\vec{j_{0}}\) --- вектор плотности потока частиц, движущихся к барьеру,
+  \(\vec{j_{\text{пр}}}\) --- вектор плотности потока частиц, прошедших барьер.
+
+  Так как в данном случае \(\vec{j}\) пропорционален квадрату амплитуды, то
+  \begin{align*}
+    R &= \frac{|B_{1}|^{2}}{|A_{1}|^{2}} \\
+    D &= \frac{|A_{3}|^{2}}{|A_{1}|^{2}} = \frac{16 n^{2}}{{(1 + n^{2})}^{2}} e^{-2 k_{2} a}.
+  \end{align*}
+  где \(n = \frac{k}{k_{2}} = \sqrt{\frac{E}{U_{0} - E}}\).
+
+  Например, если \(U_{0} - E = \qty{1}{\eV}\) и \(a = \qty{0.3}{\nano\metre}\), то \(D \approx \num{0.05}\).
+\end{solution}
+\end{problem}
 \end{document}

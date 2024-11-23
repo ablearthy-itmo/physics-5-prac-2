@@ -8,7 +8,7 @@
 \usepackage{amsthm}
 \usepackage{amsmath}
 \usepackage{mathtools}
-
+\usepackage{tcolorbox}
 
 \usepackage{polyglossia}
 \setmainlanguage[babelshorthands = true]{russian}
@@ -103,7 +103,7 @@
 \newenvironment{solution}{
   \setcounter{SubProblemNum}{0}
   \ifsolution {\textit{\solutionlabel}}.
-  }{\fi}
+  }{\qed\fi}
 
 \newcommand{\CC}{\mathbb{C}}
 \newcommand{\RR}{\mathbb{R}}
@@ -121,8 +121,21 @@
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\tcolorboxenvironment{remark}{}
+
 
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}[theorem]{Lemma}
 
 \newcommand{\by}[1]{\overset{#1}{=\joinrel=}}
+
+\makeatletter
+\newcommand{\specialnumber}[1]{%
+  \def\tagform@##1{\maketag@@@{(\ignorespaces##1, \@@italiccorr#1)}}%
+}
+\newcommand{\specialeqref}[2]{\begingroup
+  \def\tagform@##1{\maketag@@@{(\ignorespaces##1, \@@italiccorr#2)}}%
+  \eqref{#1}\endgroup}
+\makeatother
+
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
